@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'registration',
     'django.contrib.sites',
     'core',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
