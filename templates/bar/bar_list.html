@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for bar in object_list %}
+<div class="panel">
+  <h3><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></h3>
+    <p>Asked by {{ bar.user.username }} on {{ bar.created_at }}</p>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></h3>
+<p>{{ bar.description }}</p>
+<p>Asked by {{ bar.user.username }} on {{ bar.created_at }}</p>
+{% if bar.user == user %}
+<p><a href="{% url 'bar_update' pk=bar.id %}">Edit this post</a></p>
+<p><a href="{% url 'bar_delete' pk=bar.id %}">Delete post</a></p>
+{% endif %}
+{% endblock %}

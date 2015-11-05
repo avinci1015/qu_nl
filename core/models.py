@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 
 # Create your models here.
 
-class Question(models.Model):
+class Bar(models.Model):
   title = models.CharField(max_length=300)
   description = models.TextField(null=True, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
@@ -14,4 +14,4 @@ class Question(models.Model):
     return self.title
   
   def get_absolute_url(self):
-    return reverse("question_detail", args=[self.id])
+    return reverse("bar_detail", args=[self.id])

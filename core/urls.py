@@ -5,9 +5,9 @@ urlpatterns = patterns('',
     url(r'^$', Home.as_view(), name='home'),
     url(r'^user/', include('registration.backends.simple.urls')),
     url(r'^user/', include('django.contrib.auth.urls')),
-    url(r'^question/create/$', QuestionCreateView.as_view(), name='question_create'),
-    url(r'question/$', QuestionListView.as_view(), name='question_list'),
-    url(r'^question/(?P<pk>\d+)/$', QuestionDetailView.as_view(), name='question_detail'),
-    url(r'^question/update/(?P<pk>\d+)/$', QuestionUpdateView.as_view(), name='question_update'),            url(r'^question/delete/(?P<pk>\d+)/$', QuestionDeleteView.as_view(), name='question_delete'),  
-)                       
-                       
+    url(r'^bar/create/$', BarCreateView.as_view(), name='bar_create'),
+    url(r'bar/$', BarListView.as_view(), name='bar_list'),
+    url(r'^bar/(?P<pk>\d+)/$', BarDetailView.as_view(), name='bar_detail'),
+    url(r'^bar/update/(?P<pk>\d+)/$', BarUpdateView.as_view(), name='bar_update'),
+    url(r'^bar/delete/(?P<pk>\d+)/$', BarDeleteView.as_view(), name='bar_delete'),
+)
