@@ -7,5 +7,17 @@
 <p><a href="{% url 'bar_update' pk=bar.id %}">Edit this post</a></p>
 <p><a href="{% url 'bar_delete' pk=bar.id %}">Delete post</a></p>
 {% endif %}
+{% if responses.count > 0 %}
+<h3>{{ responses.count }} Response{{ responses.count|pluralize }}:</h3>
+{% endif %}
+{% for response in responses %}
+<div class="panel">
+    <p>{{ response.text }}</p>
+    <p>Responded by {{ response.user.username }} on {{ response.created_at }}</p>
+</div>
+{% endfor %}
+
+
+
 <p><a href="{% url 'response_create' pk=bar.id %}">Click here to write a response</a></p>
 {% endblock %}

@@ -32,6 +32,13 @@ class BarDetailView(DetailView):
     model = Bar
     template_name = 'bar/bar_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(BarDetailView, self).get_context_data(**kwargs)
+        bar = Bar.objects.get(id=self.kwargs['pk'])
+        response = Response.objects.filter(Bar=Bar)
+        context['response'] = response
+        return context
+
 class BarUpdateView(UpdateView):
     model = Bar
     template_name = 'bar/bar_form.html'
@@ -42,14 +49,15 @@ class BarDeleteView(DeleteView):
     template_name = 'bar/bar_confirm_delete.html'
     success_url = reverse_lazy('bar_list')
 
+
 class ResponseCreateView(CreateView):
     model = Response
     template_name = "response/response_form.html"
     fields = ['text']
-    
+
     def get_success_url(self):
         return self.object.bar.get_absolute_url()
-      
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.bar = Bar.objects.get(id=self.kwargs['pk'])
