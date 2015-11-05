@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^bar/(?P<pk>\d+)/$', BarDetailView.as_view(), name='bar_detail'),
     url(r'^bar/update/(?P<pk>\d+)/$', BarUpdateView.as_view(), name='bar_update'),
     url(r'^bar/delete/(?P<pk>\d+)/$', BarDeleteView.as_view(), name='bar_delete'),
-    url(r'^bar/(?P<pk>\d+)/response/create/$', ResponseCreateView.as_view(), name='response_create'),                
+    url(r'^bar/(?P<pk>\d+)/response/create/$', ResponseCreateView.as_view(), name='response_create'),
+    url(r'^bar/(?P<bar_pk>\d+)/response/update/(?P<response_pk>\d+)/$', ResponseUpdateView.as_view(), name='response_update'),                   
 )

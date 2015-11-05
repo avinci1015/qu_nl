@@ -62,3 +62,12 @@ class ResponseCreateView(CreateView):
         form.instance.user = self.request.user
         form.instance.bar = Bar.objects.get(id=self.kwargs['pk'])
         return super(ResponseCreateView, self).form_valid(form)
+
+class ResponseUpdateView(UpdateView):
+    model = Response
+    pk_url_kwarg = 'response_pk'
+    template_name = 'response/response_form.html'
+    fields = ['text']
+
+    def get_success_url(self):
+        return self.object.bar.get_absolute_url()
