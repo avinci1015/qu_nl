@@ -24,8 +24,8 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                   {% if user.is_authenticated %}
-                  <li><a href="{% url 'bar_list' %}">bar</a></li>
-                  <li><a href="{% url 'bar_create' %}">Add bar</a></li>
+                  <li><a href="{% url 'bar_list' %}">Bar</a></li>
+                  <li><a href="{% url 'bar_create' %}">Add Bar</a></li>
                   <li><a href="{% url 'auth_logout' %}">Logout</a></li>
                   {% else %}
                   <li><a href="{% url 'auth_login' %}">Login</a></li>
