@@ -18,7 +18,7 @@ class BarCreateView(CreateView):
     model = Bar
     template_name = "bar/bar_form.html"
     fields = ['title', 'description']
-    success_url = reverse_lazy('Bar_list')
+    success_url = reverse_lazy('bar_list')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -35,8 +35,8 @@ class BarDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(BarDetailView, self).get_context_data(**kwargs)
         bar = Bar.objects.get(id=self.kwargs['pk'])
-        response = Response.objects.filter(Bar=Bar)
-        context['response'] = response
+        responses = Response.objects.filter(bar=bar)
+        context['responses'] = responses
         return context
 
 class BarUpdateView(UpdateView):
@@ -57,6 +57,7 @@ class ResponseCreateView(CreateView):
 
     def get_success_url(self):
         return self.object.bar.get_absolute_url()
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user
