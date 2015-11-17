@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 
@@ -44,10 +45,22 @@ class BarUpdateView(UpdateView):
     template_name = 'bar/bar_form.html'
     fields = ['title', 'description']
 
+    def get_object(self, *args, **kwargs):
+        object = super(BarUpdateView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object
+
 class BarDeleteView(DeleteView):
     model = Bar
     template_name = 'bar/bar_confirm_delete.html'
     success_url = reverse_lazy('bar_list')
+
+    def get_object(self, *args, **kwargs):
+        object = super(BarDeleteView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object
 
 
 class ResponseCreateView(CreateView):
@@ -72,3 +85,23 @@ class ResponseUpdateView(UpdateView):
 
     def get_success_url(self):
         return self.object.bar.get_absolute_url()
+
+    def get_object(self, *args, **kwargs):
+        object = super(ResponseUpdateView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object
+
+class ResponseDeleteView(DeleteView):
+    model = Response
+    pk_url_kwarg = 'response_pk'
+    template_name = 'response/response_confirm_delete.html'
+
+    def get_success_url(self):
+        return self.object.bar.get_absolute_url()
+      
+    def get_object(self, *args, **kwargs):
+        object = super(ResponseDeleteView, self).get_object(*args, **kwargs)
+        if object.user != self.request.user:
+            raise PermissionDenied()
+        return object

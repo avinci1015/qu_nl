@@ -15,12 +15,10 @@
     <p>{{ response.text }}</p>
     {% if response.user == user %}
     <p><a href="{% url 'response_update' bar_pk=bar.id response_pk=response.id %}">Edit response</a></p>
+    <p><a href="{% url 'response_delete' bar_pk=bar.id response_pk=response.id %}">Delete response</a></p>
 {% endif %}
     <p>Responded by {{ response.user.username }} on {{ response.created_at }}</p>
 </div>
 {% endfor %}
-
-
-
 <p><a href="{% url 'response_create' pk=bar.id %}">Click here to write a response</a></p>
 {% endblock %}

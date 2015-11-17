@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^bar/update/(?P<pk>\d+)/$', login_required(BarUpdateView.as_view()), name='bar_update'),
     url(r'^bar/delete/(?P<pk>\d+)/$', login_required(BarDeleteView.as_view()), name='bar_delete'),
     url(r'^bar/(?P<pk>\d+)/response/create/$', login_required(ResponseCreateView.as_view()), name='response_create'),
+    url(r'^bar/(?P<bar_pk>\d+)/response/delete/(?P<response_pk>\d+)/$', login_required(ResponseDeleteView.as_view()), name='response_delete'),                   
     url(r'^bar/(?P<bar_pk>\d+)/response/update/(?P<response_pk>\d+)/$', login_required(ResponseUpdateView.as_view()), name='response_update'),
-)
+)    
