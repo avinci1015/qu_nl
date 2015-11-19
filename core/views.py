@@ -56,6 +56,15 @@ class BarDeleteView(DeleteView):
     template_name = 'bar/bar_confirm_delete.html'
     success_url = reverse_lazy('bar_list')
 
+    def get_context_data(self, **kwargs):
+        context = super(BarDetailView, self).get_context_data(**kwargs)
+        bar = Bar.objects.get(id=self.kwargs['pk'])
+        response = Response.objects.filter(bar=bar)
+        context['response'] = response
+        user_response = Response.objects.filter(bar=bar, user=self.request.user)
+        context['user_respond'] = user_respond
+        return context
+
     def get_object(self, *args, **kwargs):
         object = super(BarDeleteView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
@@ -73,9 +82,14 @@ class ResponseCreateView(CreateView):
 
 
     def form_valid(self, form):
+        bar = Bar.objects.get(id=self.kwargs['pk'])
+        if Response.objects.filter(bar=bar, user=self.request.user).exists():
+            raise PermissionDenied()
         form.instance.user = self.request.user
         form.instance.bar = Bar.objects.get(id=self.kwargs['pk'])
         return super(ResponseCreateView, self).form_valid(form)
+
+
 
 class ResponseUpdateView(UpdateView):
     model = Response
@@ -99,7 +113,7 @@ class ResponseDeleteView(DeleteView):
 
     def get_success_url(self):
         return self.object.bar.get_absolute_url()
-      
+
     def get_object(self, *args, **kwargs):
         object = super(ResponseDeleteView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:

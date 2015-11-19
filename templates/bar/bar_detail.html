@@ -20,5 +20,7 @@
     <p>Responded by {{ response.user.username }} on {{ response.created_at }}</p>
 </div>
 {% endfor %}
-<p><a href="{% url 'response_create' pk=bar.id %}">Click here to write a response</a></p>
+{% if not user_answers %}
+<p><a href="{% url 'response_create' pk=bar.id %}">Write response</a></p>
+{% endif %}
 {% endblock %}
