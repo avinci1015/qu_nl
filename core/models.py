@@ -24,3 +24,10 @@ class Response(models.Model):
 
     def __unicode__(self):
         return self.text
+      
+class Vote(models.Model):
+    user = models.ForeignKey(User)
+    bar = models.ForeignKey(Bar)
+    
+    def __unicode__(self):
+        return "%s upvoted" % (self.user.username)     
