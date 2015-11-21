@@ -61,7 +61,7 @@ class BarDeleteView(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(BarDetailView, self).get_context_data(**kwargs)
-        bar = Bar.objects.get(id=self.kwargs['pk'])
+        bar = bar.objects.get(id=self.kwargs['pk'])
         response = Response.objects.filter(bar=bar)
         context['response'] = response
         user_response = Response.objects.filter(bar=bar, user=self.request.user)
@@ -146,3 +146,9 @@ class VoteFormView(FormView):
             else:
                 prev_votes[0].delete()
         return redirect('bar_list')
+      
+class UserDetailView(DetailView):
+    model = User
+    slug_field = 'username'
+    template_name = 'user/user_detail.html'
+    context_object_name = 'user_in_view'      
