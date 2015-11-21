@@ -146,9 +146,18 @@ class VoteFormView(FormView):
             else:
                 prev_votes[0].delete()
         return redirect('bar_list')
-      
+
 class UserDetailView(DetailView):
     model = User
     slug_field = 'username'
     template_name = 'user/user_detail.html'
-    context_object_name = 'user_in_view'      
+    context_object_name = 'user_in_view'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        user_in_view = User.objects.get(username=self.kwargs['slug'])
+        bars = Bar.objects.filter(user=user_in_view)
+        context['bars'] = bars
+        responses = Response.objects.filter(user=user_in_view)
+        context['response'] = responses
+        return context
