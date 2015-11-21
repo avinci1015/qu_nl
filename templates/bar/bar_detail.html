@@ -2,7 +2,9 @@
 {% block content %}
 <h3><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></h3>
 <p>{{ bar.description }}</p>
-<p>Asked by {{ bar.user.username }} on {{ bar.created_at }}</p>
+
+<p>Asked by <a href="{% url 'user_detail' slug=bar.user.username %}">{{ bar.user.username }}</a> on {{ bar.created_at }}</p>
+
 {% if bar.user == user %}
 <p><a href="{% url 'bar_update' pk=bar.id %}">Edit this post</a></p>
 <p><a href="{% url 'bar_delete' pk=bar.id %}">Delete post</a></p>
@@ -17,7 +19,7 @@
     <p><a href="{% url 'response_update' bar_pk=bar.id response_pk=response.id %}">Edit response</a></p>
     <p><a href="{% url 'response_delete' bar_pk=bar.id response_pk=response.id %}">Delete response</a></p>
 {% endif %}
-    <p>Responded by {{ response.user.username }} on {{ response.created_at }}</p>
+   <p>Answered by <a href="{% url 'user_detail' slug=response.user.username %}">{{ response.user.username }}</a> on {{ response.created_at }} ({{ response.vote_set.all.count }} Vote{{ response.vote_set.all.count|pluralize }})</p>
 </div>
 {% endfor %}
 {% if not user_answers %}
