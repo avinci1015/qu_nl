@@ -60,14 +60,6 @@ class BarDeleteView(DeleteView):
     template_name = 'bar/bar_confirm_delete.html'
     success_url = reverse_lazy('bar_list')
 
-    def get_context_data(self, **kwargs):
-        context = super(BarDetailView, self).get_context_data(**kwargs)
-        bar = bar.objects.get(id=self.kwargs['pk'])
-        response = Response.objects.filter(bar=bar)
-        context['response'] = response
-        user_response = Response.objects.filter(bar=bar, user=self.request.user)
-        context['user_respond'] = user_respond
-        return context
 
     def get_object(self, *args, **kwargs):
         object = super(BarDeleteView, self).get_object(*args, **kwargs)

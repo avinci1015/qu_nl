@@ -3,24 +3,17 @@
 {% for bar in object_list %}
 <div class="panel">
   <h3><a href="{{ bar.get_absolute_url }}">{{ bar.title }}</a></h3>
-  
-   <p>Asked by <a href="{% url 'user_detail' slug=bar.user.username %}">{{ bar.user.username }}</a> on {{ bar.created_at }}</p>
-  
-<p>{{ response.vote_set.all.count }} Vote{{ response.vote_set.all.count|pluralize }}</p>
-<form method="post" action="{% url 'vote' %}">
-    {% csrf_token %}
-    <input type="hidden" name="response" value="{{ response.id }}" />
-    <input type="hidden" name="bar" value="{{ bar.id }}" />
-    <input type="hidden" name="user" value="{{ user.id }}" />
-    <button>+</button>
-</form>   
+
+   <p>Added by <a href="{% url 'user_detail' slug=bar.user.username %}">{{ bar.user.username }}</a> on {{ bar.created_at }}</p>
+
+
 <p>{{ bar.vote_set.all.count }} Vote{{ bar.vote_set.all.count|pluralize }}</p>
 <form method="post" action="{% url 'vote' %}">
     {% csrf_token %}
-    <input type="hidden" name="" value="{{ bar.id }}" />
+    <input type="hidden" name="bar" value="{{ bar.id }}" />
     <input type="hidden" name="user" value="{{ user.id }}" />
     <button>+</button>
-</form> 
+</form>
 </div>
 {% empty %}
 <p>No results found.</p>

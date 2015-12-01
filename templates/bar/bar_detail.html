@@ -20,6 +20,14 @@
     <p><a href="{% url 'response_delete' bar_pk=bar.id response_pk=response.id %}">Delete response</a></p>
 {% endif %}
    <p>Answered by <a href="{% url 'user_detail' slug=response.user.username %}">{{ response.user.username }}</a> on {{ response.created_at }} ({{ response.vote_set.all.count }} Vote{{ response.vote_set.all.count|pluralize }})</p>
+  <p>{{ response.vote_set.all.count }} Vote{{ response.vote_set.all.count|pluralize }}</p>
+<form method="post" action="{% url 'vote' %}">
+    {% csrf_token %}
+    <input type="hidden" name="response" value="{{ response.id }}" />
+    <input type="hidden" name="bar" value="{{ bar.id }}" />
+    <input type="hidden" name="user" value="{{ user.id }}" />
+    <button>+</button>
+</form>
 </div>
 {% endfor %}
 {% if not user_answers %}
