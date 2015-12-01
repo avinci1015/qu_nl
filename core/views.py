@@ -33,6 +33,14 @@ class BarListView(ListView):
     template_name = "bar/bar_list.html"
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(BarListView, self).get_context_data(**kwargs)
+        user_votes = Bar.objects.filter(vote__user=self.request.user)
+        context['user_votes'] = user_votes
+        user_votes = Response.objects.filter(vote__user=self.request.user)
+        context['user_votes'] = user_votes
+        return context
+
 class BarDetailView(DetailView):
     model = Bar
     template_name = 'bar/bar_detail.html'

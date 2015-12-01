@@ -19,14 +19,22 @@
     <p><a href="{% url 'response_update' bar_pk=bar.id response_pk=response.id %}">Edit response</a></p>
     <p><a href="{% url 'response_delete' bar_pk=bar.id response_pk=response.id %}">Delete response</a></p>
 {% endif %}
-   <p>Answered by <a href="{% url 'user_detail' slug=response.user.username %}">{{ response.user.username }}</a> on {{ response.created_at }} ({{ response.vote_set.all.count }} Vote{{ response.vote_set.all.count|pluralize }})</p>
-  <p>{{ response.vote_set.all.count }} Vote{{ response.vote_set.all.count|pluralize }}</p>
+  <p>Answered {% if response.visibility == 0 %} by <a href="{% url 'user_detail' slug=response.user.username %}">{{ response.user.username }}</a> {% endif %} on {{ response.created_at }}</p>
 <form method="post" action="{% url 'vote' %}">
+    <span class="badge">{{ response.vote_set.all.count }} Vote{{  response.vote_set.all.count|pluralize }}</span>
     {% csrf_token %}
     <input type="hidden" name="response" value="{{ response.id }}" />
     <input type="hidden" name="bar" value="{{ bar.id }}" />
     <input type="hidden" name="user" value="{{ user.id }}" />
-    <button>+</button>
+    {% if response in user_votes %}  
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+        </button>
+    {% else %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+    {% endif %}
 </form>
 </div>
 {% endfor %}
