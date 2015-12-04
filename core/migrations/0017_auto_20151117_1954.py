@@ -11,13 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='response',
-            name='Bar',
-            field=models.ForeignKey(default=1, to='core.Bar'),
-            preserve_default=False,
-        ),
-
       migrations.RemoveField(
             model_name='response',
             name='Bar',
