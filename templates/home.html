@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
+{% load staticfiles %}
 {% if user.is_authenticated %}
 <div class="jumbotron">
-    <h1>Welcome back!</h1>
+  <h1>Welcome back!</h1>
 </div>
 {% else %}
 <div class="jumbotron">
-    <h1>Welcome to QU Night Life</h1>
-    <p>The site that tells you where the party is!</p>
-    <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'   %}">Sign up</a></p>
+  <h1>Welcome to QU Night Life site!</h1>
+  <p>Here you can find the bars that have been rated the best by your fellow QU peeps! No more of running around from place to place looking for the most fun, cheapest drinks, and best music!</p>
+ 
+
+  <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'   %}">Sign up</a></p>
 </div>
 {% endif %}
 {% endblock %}
